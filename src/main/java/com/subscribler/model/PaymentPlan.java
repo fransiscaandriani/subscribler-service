@@ -8,17 +8,13 @@ import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
 
-import java.util.List;
-
 @AllArgsConstructor
 @Getter @Setter
-@Document(collection = "business_owners")
-public class BusinessOwner {
+
+@Document(collection = "payment_plans")
+public class PaymentPlan {
     @Id
     private @NonNull String id;
-    private @NonNull String firstName;
-    private @NonNull String lastName;
-    private @NonNull String email;
-    private @NonNull List<Package> packageList;
-    private @NonNull List<Item> itemList;
+    private @NonNull int billingPeriod; //in cycle
+    private @NonNull double price;
 }
