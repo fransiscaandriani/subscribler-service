@@ -20,6 +20,6 @@ public class Package {
     private @NonNull String name;
     private @NonNull String description;
     private @NonNull int cyclePeriod; //in days
-    private @NonNull List<Item> items;
-    private @NonNull List<SubscriptionPlan> subscriptionPlans;
+    private @NonNull List<ItemQuantity> itemQuantityList;
+    private @NonNull List<SubscriptionPlan> subscriptionPlanList;
 }
