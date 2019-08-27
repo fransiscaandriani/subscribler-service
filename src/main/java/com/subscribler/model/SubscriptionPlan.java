@@ -12,7 +12,7 @@ import lombok.Setter;
 @Getter @Setter
 
 @Document(collection = "payment_plans")
-public class PaymentPlan {
+public class SubscriptionPlan {
     @Id
     private @NonNull String id;
     private @NonNull int billingPeriod; //in cycle

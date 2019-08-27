@@ -21,5 +21,5 @@ public class Package {
     private @NonNull String description;
     private @NonNull int cyclePeriod; //in days
     private @NonNull List<Item> items;
-    private @NonNull List<PaymentPlan> paymentPlans;
+    private @NonNull List<SubscriptionPlan> subscriptionPlans;
 }
