@@ -8,17 +8,13 @@ import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
 
-import java.util.List;
-
 @AllArgsConstructor
 @Getter @Setter
-@Document(collection = "business_owners")
-public class BusinessOwner {
+
+@Document(collection = "items")
+public class Item {
     @Id
     private @NonNull String id;
-    private @NonNull String firstName;
-    private @NonNull String lastName;
-    private @NonNull String email;
-    private @NonNull List<Package> packageList;
-    private @NonNull List<Item> itemList;
+    private @NonNull String name;
+    private @NonNull String description;
 }
