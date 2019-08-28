@@ -25,18 +25,18 @@ public class MerchantController
     }
 
     // Endpoint to get a specific merchant by id
-    @GetMapping("/merchants/{id}")
-    public Optional<Merchant> getMerchant(@PathVariable String id)
+    @GetMapping("/merchants/{merchantId}")
+    public Optional<Merchant> getMerchant(@PathVariable String merchantId)
     {
-        Optional<Merchant> merchant = merchantRepository.findById(id);
+        Optional<Merchant> merchant = merchantRepository.findById(merchantId);
         return merchant;
     }
 
     // Endpoint to update a specific merchant by id
-    @PutMapping("/merchants/{id}")
-    public Optional<Merchant> updateMerchant(@RequestBody Merchant newMerchant, @PathVariable String id)
+    @PutMapping("/merchants/{merchantId}")
+    public Optional<Merchant> updateMerchant(@RequestBody Merchant newMerchant, @PathVariable String merchantId)
     {
-        Optional<Merchant> optionalEmp = merchantRepository.findById(id);
+        Optional<Merchant> optionalEmp = merchantRepository.findById(merchantId);
         if (optionalEmp.isPresent()) {
             Merchant merchant = optionalEmp.get();
             merchant.setFirstName(newMerchant.getFirstName());
@@ -49,10 +49,10 @@ public class MerchantController
         return optionalEmp;
     }
 
-    @DeleteMapping(value = "/merchants/{id}", produces = "application/json; charset=utf-8")
-    public String deleteMerchant(@PathVariable String id) {
-        Boolean result = merchantRepository.existsById(id);
-        merchantRepository.deleteById(id);
+    @DeleteMapping(value = "/merchants/{merchantId}", produces = "application/json; charset=utf-8")
+    public String deleteMerchant(@PathVariable String merchantId) {
+        Boolean result = merchantRepository.existsById(merchantId);
+        merchantRepository.deleteById(merchantId);
         return "{ \"success\" : "+ (result ? "true" : "false") +" }";
     }
 
