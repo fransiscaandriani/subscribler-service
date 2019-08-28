@@ -6,6 +6,7 @@
 - Java
 - Your favorite IDE (Intellij please)
 - MongoDB (installation instructions can be found [here](https://docs.mongodb.com/manual/installation/))
+- Lombok Plugin (if you use Intellij)
 
 ## Getting Started
 

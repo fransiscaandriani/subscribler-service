@@ -12,8 +12,8 @@ import java.util.List;
 
 @AllArgsConstructor
 @Getter @Setter
-@Document(collection = "business_owners")
-public class BusinessOwner {
+@Document(collection = "merchants")
+public class Merchant {
     @Id
     private @NonNull String id;
     private @NonNull String firstName;
