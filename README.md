@@ -5,6 +5,7 @@
 - Maven 
 - Java
 - Your favorite IDE
+- Lombok Plugin
 
 ## Getting Started
 
