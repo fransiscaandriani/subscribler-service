@@ -16,12 +16,6 @@ public class MerchantController
     @Autowired
     MerchantRepository merchantRepository;
 
-    @GetMapping(value = "/healthcheck", produces = "application/json; charset=utf-8")
-    public String getHealthCheck()
-    {
-        return "{ \"isWorking\" : true }";
-    }
-
     // Endpoint to get all existing merchants
     @GetMapping("/merchants")
     public List<Merchant> getMerchants()
