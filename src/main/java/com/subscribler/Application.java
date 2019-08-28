@@ -11,11 +11,3 @@ public static void main(String[] args) {
 }
 
 }
-
-/*
- * http://www.technicalkeeda.com/spring-tutorials/spring-4-mongodb-repository-example
- * https://www.mongodb.org/
- * https://docs.spring.io/spring-data/mongodb/docs/current/reference/html/
- * https://www.baeldung.com/spring-data-mongodb-tutorial
- * https://docs.mongodb.com/manual/mongo/
- */
