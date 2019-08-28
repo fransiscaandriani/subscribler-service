@@ -22,6 +22,7 @@ public class MerchantController
         return "{ \"isWorking\" : true }";
     }
 
+    // Endpoint to get all existing merchants
     @GetMapping("/merchants")
     public List<Merchant> getMerchants()
     {
@@ -29,6 +30,7 @@ public class MerchantController
         return merchantList;
     }
 
+    // Endpoint to get a specific merchant by id
     @GetMapping("/merchants/{id}")
     public Optional<Merchant> getMerchant(@PathVariable String id)
     {
@@ -36,6 +38,7 @@ public class MerchantController
         return merchant;
     }
 
+    // Endpoint to update a specific merchant by id
     @PutMapping("/merchants/{id}")
     public Optional<Merchant> updateMerchant(@RequestBody Merchant newMerchant, @PathVariable String id)
     {
@@ -45,6 +48,8 @@ public class MerchantController
             merchant.setFirstName(newMerchant.getFirstName());
             merchant.setLastName(newMerchant.getLastName());
             merchant.setEmail(newMerchant.getEmail());
+            merchant.setPackageList(newMerchant.getPackageList());
+            merchant.setItemList(newMerchant.getItemList());
             merchantRepository.save(merchant);
         }
         return optionalEmp;
@@ -61,7 +66,13 @@ public class MerchantController
     public Merchant addMerchant(@RequestBody Merchant newMerchant)
     {
         String id = String.valueOf(new Random().nextInt());
-        Merchant merchant = new Merchant(id, newMerchant.getFirstName(), newMerchant.getLastName(), newMerchant.getEmail(),newMerchant.getPackageList(), newMerchant.getItemList());
+        Merchant merchant = new Merchant(
+                id,
+                newMerchant.getFirstName(),
+                newMerchant.getLastName(),
+                newMerchant.getEmail(),
+                newMerchant.getPackageList(),
+                newMerchant.getItemList());
         merchantRepository.insert(merchant);
         return merchant;
     }
