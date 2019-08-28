@@ -28,17 +28,17 @@ public class MerchantController
     @GetMapping("/merchants/{merchantId}")
     public Optional<Merchant> getMerchant(@PathVariable String merchantId)
     {
-        Optional<Merchant> merchant = merchantRepository.findById(merchantId);
-        return merchant;
+        Optional<Merchant> optionalMerchant = merchantRepository.findById(merchantId);
+        return optionalMerchant;
     }
 
     // Endpoint to update a specific merchant by id
     @PutMapping("/merchants/{merchantId}")
     public Optional<Merchant> updateMerchant(@RequestBody Merchant newMerchant, @PathVariable String merchantId)
     {
-        Optional<Merchant> optionalEmp = merchantRepository.findById(merchantId);
-        if (optionalEmp.isPresent()) {
-            Merchant merchant = optionalEmp.get();
+        Optional<Merchant> optionalMerchant = merchantRepository.findById(merchantId);
+        if (optionalMerchant.isPresent()) {
+            Merchant merchant = optionalMerchant.get();
             merchant.setFirstName(newMerchant.getFirstName());
             merchant.setLastName(newMerchant.getLastName());
             merchant.setEmail(newMerchant.getEmail());
@@ -46,7 +46,7 @@ public class MerchantController
             merchant.setItemList(newMerchant.getItemList());
             merchantRepository.save(merchant);
         }
-        return optionalEmp;
+        return optionalMerchant;
     }
 
     @DeleteMapping(value = "/merchants/{merchantId}", produces = "application/json; charset=utf-8")
