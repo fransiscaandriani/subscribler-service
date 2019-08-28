@@ -1,0 +1,68 @@
+package com.subscribler.controller;
+
+import java.util.List;
+import java.util.Optional;
+import java.util.Random;
+
+import com.subscribler.repository.MerchantRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import com.subscribler.model.Merchant;
+
+@RestController
+public class MerchantController
+{
+    @Autowired
+    MerchantRepository merchantRepository;
+
+    @GetMapping(value = "/healthcheck", produces = "application/json; charset=utf-8")
+    public String getHealthCheck()
+    {
+        return "{ \"isWorking\" : true }";
+    }
+
+    @GetMapping("/merchants")
+    public List<Merchant> getMerchants()
+    {
+        List<Merchant> merchantList = merchantRepository.findAll();
+        return merchantList;
+    }
+
+    @GetMapping("/merchants/{id}")
+    public Optional<Merchant> getMerchant(@PathVariable String id)
+    {
+        Optional<Merchant> merchant = merchantRepository.findById(id);
+        return merchant;
+    }
+
+    @PutMapping("/merchants/{id}")
+    public Optional<Merchant> updateMerchant(@RequestBody Merchant newMerchant, @PathVariable String id)
+    {
+        Optional<Merchant> optionalEmp = merchantRepository.findById(id);
+        if (optionalEmp.isPresent()) {
+            Merchant merchant = optionalEmp.get();
+            merchant.setFirstName(newMerchant.getFirstName());
+            merchant.setLastName(newMerchant.getLastName());
+            merchant.setEmail(newMerchant.getEmail());
+            merchantRepository.save(merchant);
+        }
+        return optionalEmp;
+    }
+
+    @DeleteMapping(value = "/merchants/{id}", produces = "application/json; charset=utf-8")
+    public String deleteMerchant(@PathVariable String id) {
+        Boolean result = merchantRepository.existsById(id);
+        merchantRepository.deleteById(id);
+        return "{ \"success\" : "+ (result ? "true" : "false") +" }";
+    }
+
+    @PostMapping("/merchants")
+    public Merchant addMerchant(@RequestBody Merchant newMerchant)
+    {
+        String id = String.valueOf(new Random().nextInt());
+        Merchant merchant = new Merchant(id, newMerchant.getFirstName(), newMerchant.getLastName(), newMerchant.getEmail(),newMerchant.getPackageList(), newMerchant.getItemList());
+        merchantRepository.insert(merchant);
+        return merchant;
+    }
+}
