@@ -28,7 +28,7 @@ public class PackageController {
     }
 
     //Endpoint to get package by id
-    @GetMapping("/merchants/{merchantId}/package/{packageId}")
+    @GetMapping("/merchants/{merchantId}/packages/{packageId}")
     public Package getPackage(@PathVariable String merchantId, @PathVariable String packageId){
         Optional<Merchant> optionalMerchant = merchantRepository.findById(merchantId);
         if (optionalMerchant.isPresent()){
@@ -67,5 +67,30 @@ public class PackageController {
         }
         return null;
     }
+
+    //Endpoint to update a package
+    @PutMapping("/merchants/{merchantId}/packages/{packageId}")
+    public Package updatePackage(@RequestBody Package newPackage, @PathVariable String merchantId, @PathVariable String packageId){
+        Optional<Merchant> optionalMerchant = merchantRepository.findById(merchantId);
+        if (optionalMerchant.isPresent()){
+            Merchant merchant = optionalMerchant.get();
+            List<Package> packageList = merchant.getPackageList();
+            if (packageList == null || packageList.size() == 0)
+                return null;
+            for(Package p : packageList){
+                if (p.getId()==packageId){
+                    p.setName(newPackage.getName());
+                    p.setDescription(newPackage.getDescription());
+                    p.setCyclePeriod(newPackage.getCyclePeriod());
+                    p.setItemQuantityList(newPackage.getItemQuantityList());
+                    p.setSubscriptionPlanList(newPackage.getSubscriptionPlanList());
+                    merchantRepository.save(merchant);
+                    return p;
+                }
+            }
+        }
+        return null;
+    }
+
 
 }
