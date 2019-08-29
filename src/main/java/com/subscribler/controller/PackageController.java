@@ -34,8 +34,10 @@ public class PackageController {
         if (optionalMerchant.isPresent()){
             Merchant merchant = optionalMerchant.get();
             List<Package> packageList = merchant.getPackageList();
+            if (packageList == null || packageList.size() == 0)
+                return null;
             for(Package p : packageList){
-                if (p.getId()==packageId)
+                if (p.getId().equals(packageId))
                     return p;
             }
         }
@@ -78,7 +80,7 @@ public class PackageController {
             if (packageList == null || packageList.size() == 0)
                 return null;
             for(Package p : packageList){
-                if (p.getId()==packageId){
+                if (p.getId().equals(packageId)){
                     p.setName(newPackage.getName());
                     p.setDescription(newPackage.getDescription());
                     p.setCyclePeriod(newPackage.getCyclePeriod());
