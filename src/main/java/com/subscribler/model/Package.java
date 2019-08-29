@@ -13,7 +13,6 @@ import java.util.List;
 @AllArgsConstructor
 @Getter @Setter
 
-@Document(collection = "packages")
 public class Package {
     @Id
     private @NonNull String id;

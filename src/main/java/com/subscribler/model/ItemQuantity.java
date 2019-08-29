@@ -11,10 +11,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @Getter @Setter
 
-@Document(collection = "item_quantities")
 public class ItemQuantity {
-    @Id
-    private @NonNull String id;
-    private @NonNull Item item;
+    private @NonNull String itemId;
     private @NonNull int quantity;
 }

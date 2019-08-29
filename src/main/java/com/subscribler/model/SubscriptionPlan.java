@@ -11,7 +11,6 @@ import lombok.Setter;
 @AllArgsConstructor
 @Getter @Setter
 
-@Document(collection = "subscription_plans")
 public class SubscriptionPlan {
     @Id
     private @NonNull String id;
