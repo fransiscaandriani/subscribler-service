@@ -27,6 +27,21 @@ public class PackageController {
         return new ArrayList<>();
     }
 
+    //Endpoint to get package by id
+    @GetMapping("/merchants/{merchantId}/package/{packageId}")
+    public Package getPackage(@PathVariable String merchantId, @PathVariable String packageId){
+        Optional<Merchant> optionalMerchant = merchantRepository.findById(merchantId);
+        if (optionalMerchant.isPresent()){
+            Merchant merchant = optionalMerchant.get();
+            List<Package> packageList = merchant.getPackageList();
+            for(Package p : packageList){
+                if (p.getId()==packageId)
+                    return p;
+            }
+        }
+        return null;
+    }
+
     // Endpoint to add a new package
     @PostMapping("/merchants/{merchantId}/packages")
     public Package createPackage(@RequestBody Package newPackage, @PathVariable String merchantId){
@@ -48,6 +63,7 @@ public class PackageController {
             packageList.add(merchantPackage); //add the newly created package to the list
             merchant.setPackageList(packageList);
             merchantRepository.save(merchant);
+            return merchantPackage;
         }
         return null;
     }
