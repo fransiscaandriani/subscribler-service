@@ -1,16 +1,15 @@
 package com.subscribler.controller;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.Random;
-
 import com.subscribler.model.Item;
+import com.subscribler.model.Merchant;
 import com.subscribler.repository.MerchantRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import com.subscribler.model.Merchant;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+import java.util.Random;
 
 @RestController
 public class ItemController {
@@ -35,7 +34,7 @@ public class ItemController {
             List<Item> itemList = merchant.getItemList();
             if (itemList == null || itemList.size() == 0)
                 return null;
-            for (Item item: itemList) {
+            for (Item item : itemList) {
                 if (item.getId().equals(itemId))
                     return item;
             }
@@ -110,6 +109,6 @@ public class ItemController {
                 }
             }
         }
-        return "{ \"success\" : "+ (result ? "true" : "false") +" }";
+        return "{ \"success\" : " + (result ? "true" : "false") + " }";
     }
 }
