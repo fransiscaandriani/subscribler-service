@@ -21,8 +21,8 @@ public class MerchantModelListener extends AbstractMongoEventListener<Merchant> 
 
     @Override
     public void onBeforeConvert(BeforeConvertEvent<Merchant> event) {
-        event.getSource().setId(String.valueOf(sequenceGenerator.generateSequence(Merchant.SEQUENCE_NAME)));
+        if (event.getSource().getId() == null) {
+            event.getSource().setId(String.valueOf(sequenceGenerator.generateSequence(Merchant.SEQUENCE_NAME)));
+        }
     }
-
-
 }

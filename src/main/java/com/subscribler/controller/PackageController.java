@@ -1,21 +1,24 @@
 package com.subscribler.controller;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.Random;
-
+import com.subscribler.model.Merchant;
 import com.subscribler.model.Package;
+import com.subscribler.model.SubscriptionPlan;
 import com.subscribler.repository.MerchantRepository;
+import com.subscribler.service.SequenceGeneratorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import com.subscribler.model.Merchant;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 @RestController
 public class PackageController {
     @Autowired
     MerchantRepository merchantRepository;
+
+    @Autowired
+    private SequenceGeneratorService sequenceGenerator;
 
     // Endpoint to get all existing packages
     @GetMapping("/merchants/{merchantId}/packages")
@@ -49,9 +52,8 @@ public class PackageController {
         Optional<Merchant> optionalMerchant = merchantRepository.findById(merchantId);
         if (optionalMerchant.isPresent()) {
             Merchant merchant = optionalMerchant.get(); //get merchant
-            String packageId = String.valueOf(new Random().nextInt()); //generate random id
+            String packageId = String.valueOf(sequenceGenerator.generateSequence(Package.SEQUENCE_NAME));
             Package merchantPackage = new Package(
-                    packageId,
                     newPackage.getName(),
                     newPackage.getDescription(),
                     newPackage.getCyclePeriod(),
@@ -61,6 +63,7 @@ public class PackageController {
             List<Package> packageList = merchant.getPackageList(); //get existing packages
             if (packageList == null)
                 packageList = new ArrayList<>();
+            merchantPackage.setId(packageId);
             packageList.add(merchantPackage); //add the newly created package to the list
             merchant.setPackageList(packageList);
             merchantRepository.save(merchant);
@@ -84,6 +87,11 @@ public class PackageController {
                     p.setDescription(newPackage.getDescription());
                     p.setCyclePeriod(newPackage.getCyclePeriod());
                     p.setItemQuantityList(newPackage.getItemQuantityList());
+                    for (SubscriptionPlan plan : newPackage.getSubscriptionPlanList()) {
+                        if (!plan.getId().equals(null)) {
+                            plan.setId(String.valueOf(sequenceGenerator.generateSequence(SubscriptionPlan.SEQUENCE_NAME)));
+                        }
+                    }
                     p.setSubscriptionPlanList(newPackage.getSubscriptionPlanList());
                     merchantRepository.save(merchant);
                     return p;
@@ -112,6 +120,6 @@ public class PackageController {
                 }
             }
         }
-        return "{ \"success\" : "+ (result ? "true" : "false") +" }";
+        return "{ \"success\" : " + (result ? "true" : "false") + " }";
     }
 }
