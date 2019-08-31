@@ -17,4 +17,5 @@ public class Item {
     private @NonNull String name;
     private @NonNull String description;
     private @NonNull String pictureUrl;
+    private @NonNull String unit;
 }
