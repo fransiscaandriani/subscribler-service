@@ -19,24 +19,23 @@ public class PackageController {
 
     // Endpoint to get all existing packages
     @GetMapping("/merchants/{merchantId}/packages")
-    public List<Package> getPackages(@PathVariable String merchantId)
-    {
+    public List<Package> getPackages(@PathVariable String merchantId) {
         Optional<Merchant> optionalMerchant = merchantRepository.findById(merchantId);
-        if(optionalMerchant.isPresent())
+        if (optionalMerchant.isPresent())
             return optionalMerchant.get().getPackageList();
         return new ArrayList<>();
     }
 
     //Endpoint to get package by id
     @GetMapping("/merchants/{merchantId}/packages/{packageId}")
-    public Package getPackage(@PathVariable String merchantId, @PathVariable String packageId){
+    public Package getPackage(@PathVariable String merchantId, @PathVariable String packageId) {
         Optional<Merchant> optionalMerchant = merchantRepository.findById(merchantId);
-        if (optionalMerchant.isPresent()){
+        if (optionalMerchant.isPresent()) {
             Merchant merchant = optionalMerchant.get();
             List<Package> packageList = merchant.getPackageList();
             if (packageList == null || packageList.size() == 0)
                 return null;
-            for(Package p : packageList){
+            for (Package p : packageList) {
                 if (p.getId().equals(packageId))
                     return p;
             }
@@ -46,9 +45,9 @@ public class PackageController {
 
     // Endpoint to add a new package
     @PostMapping("/merchants/{merchantId}/packages")
-    public Package createPackage(@RequestBody Package newPackage, @PathVariable String merchantId){
+    public Package createPackage(@RequestBody Package newPackage, @PathVariable String merchantId) {
         Optional<Merchant> optionalMerchant = merchantRepository.findById(merchantId);
-        if(optionalMerchant.isPresent()){
+        if (optionalMerchant.isPresent()) {
             Merchant merchant = optionalMerchant.get(); //get merchant
             String packageId = String.valueOf(new Random().nextInt()); //generate random id
             Package merchantPackage = new Package(
@@ -72,15 +71,15 @@ public class PackageController {
 
     //Endpoint to update a package
     @PutMapping("/merchants/{merchantId}/packages/{packageId}")
-    public Package updatePackage(@RequestBody Package newPackage, @PathVariable String merchantId, @PathVariable String packageId){
+    public Package updatePackage(@RequestBody Package newPackage, @PathVariable String merchantId, @PathVariable String packageId) {
         Optional<Merchant> optionalMerchant = merchantRepository.findById(merchantId);
-        if (optionalMerchant.isPresent()){
+        if (optionalMerchant.isPresent()) {
             Merchant merchant = optionalMerchant.get();
             List<Package> packageList = merchant.getPackageList();
             if (packageList == null || packageList.size() == 0)
                 return null;
-            for(Package p : packageList){
-                if (p.getId().equals(packageId)){
+            for (Package p : packageList) {
+                if (p.getId().equals(packageId)) {
                     p.setName(newPackage.getName());
                     p.setDescription(newPackage.getDescription());
                     p.setCyclePeriod(newPackage.getCyclePeriod());
@@ -94,5 +93,25 @@ public class PackageController {
         return null;
     }
 
-
+    //Endpoint to delete package
+    @DeleteMapping("/merchants/{merchantId}/packages/{packageId}")
+    public String deletePackage(@PathVariable String merchantId, @PathVariable String packageId) {
+        Optional<Merchant> optionalMerchant = merchantRepository.findById(merchantId);
+        boolean result = false;
+        if (optionalMerchant.isPresent()) {
+            Merchant merchant = optionalMerchant.get();
+            List<Package> packageList = merchant.getPackageList();
+            if (packageList != null && packageList.size() > 0) {
+                for (int i = 0; i < packageList.size(); i++) {
+                    Package p = packageList.get(i);
+                    if (p.getId().equals(packageId)) {
+                        result = true;
+                        packageList.remove(i);
+                        merchantRepository.save(merchant);
+                    }
+                }
+            }
+        }
+        return "{ \"success\" : "+ (result ? "true" : "false") +" }";
+    }
 }
