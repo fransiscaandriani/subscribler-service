@@ -28,6 +28,22 @@ public class MerchantController
         return merchantRepository.findById(merchantId);
     }
 
+    @PostMapping("/merchants")
+    public Merchant addMerchant(@RequestBody Merchant newMerchant)
+    {
+        Merchant merchant = new Merchant(
+                "Placeholder ID",
+                newMerchant.getFirstName(),
+                newMerchant.getLastName(),
+                newMerchant.getEmail(),
+                newMerchant.getAddress(),
+                newMerchant.getPhoneNumber(),
+                newMerchant.getBusiness(),
+                newMerchant.getBankAccount());
+        merchantRepository.insert(merchant);
+        return merchant;
+    }
+
     // Endpoint to update a specific merchant by id
     @PutMapping("/merchants/{merchantId}")
     public Optional<Merchant> updateMerchant(@RequestBody Merchant newMerchant, @PathVariable String merchantId)
@@ -38,6 +54,10 @@ public class MerchantController
             merchant.setFirstName(newMerchant.getFirstName());
             merchant.setLastName(newMerchant.getLastName());
             merchant.setEmail(newMerchant.getEmail());
+            merchant.setAddress(newMerchant.getAddress());
+            merchant.setPhoneNumber(newMerchant.getPhoneNumber());
+            merchant.setBusiness(newMerchant.getBusiness());
+            merchant.setBankAccount(newMerchant.getBankAccount());
             merchant.setPackageList(newMerchant.getPackageList());
             merchant.setItemList(newMerchant.getItemList());
             merchantRepository.save(merchant);
@@ -50,17 +70,5 @@ public class MerchantController
         boolean result = merchantRepository.existsById(merchantId);
         merchantRepository.deleteById(merchantId);
         return "{ \"success\" : "+ (result ? "true" : "false") +" }";
-    }
-
-    @PostMapping("/merchants")
-    public Merchant addMerchant(@RequestBody Merchant newMerchant)
-    {
-        Merchant merchant = new Merchant(
-                "Placeholder ID",
-                newMerchant.getFirstName(),
-                newMerchant.getLastName(),
-                newMerchant.getEmail());
-        merchantRepository.insert(merchant);
-        return merchant;
     }
 }

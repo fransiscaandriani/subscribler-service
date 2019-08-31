@@ -20,6 +20,10 @@ public class Merchant {
     private @NonNull String firstName;
     private @NonNull String lastName;
     private @NonNull String email;
+    private @NonNull String address;
+    private @NonNull String phoneNumber;
+    private @NonNull Business business;
+    private @NonNull BankAccount bankAccount;
     private @Nullable List<Package> packageList;
     private @Nullable List<Item> itemList;
 }
