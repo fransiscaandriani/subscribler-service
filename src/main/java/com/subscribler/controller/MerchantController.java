@@ -64,4 +64,16 @@ public class MerchantController {
         merchantRepository.deleteById(merchantId);
         return "{ \"success\" : " + (result ? "true" : "false") + " }";
     }
+
+    @GetMapping(value = "/merchants/{merchantId}/embed", produces = "text/plain; charset=utf-8")
+    public String getEmbedCode(@PathVariable String merchantId) {
+        Optional<Merchant> optionalMerchant = merchantRepository.findById(merchantId);
+        if (!optionalMerchant.isPresent()) {
+            return null;
+        }
+        // get url from merchantId
+        String url = String.format("/merchants/%s/embed", merchantId);
+        String embedString = String.format("<a href=\"%s\"><div style=\"border: 5px solid #9000FF;\n  display: inline-block;\n  padding: 5px 10px;\n  border-radius: 10px;\n  margin: 5px 10px;\n  background-color: #9000FF;\n  color: white;\n  cursor: pointer;\">\n  Subscribe Now\n</div>\n</a>", url);
+        return embedString;
+    }
 }
