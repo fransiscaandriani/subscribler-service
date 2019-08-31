@@ -1,5 +1,6 @@
 package com.subscribler.model;
 
+import com.mongodb.lang.Nullable;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -17,7 +18,7 @@ public class Item {
     public static final String SEQUENCE_NAME = "items_sequence";
 
     @Id
-    private @NonNull String id;
+    private @Nullable String id;
     private @NonNull String name;
     private @NonNull String description;
     private @NonNull String imageUrl;
