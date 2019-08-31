@@ -1,14 +1,12 @@
 package com.subscribler.controller;
 
-import java.util.List;
-import java.util.Optional;
-import java.util.Random;
-
+import com.subscribler.model.Merchant;
 import com.subscribler.repository.MerchantRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import com.subscribler.model.Merchant;
+import java.util.List;
+import java.util.Optional;
 
 @RestController
 public class MerchantController
@@ -59,9 +57,8 @@ public class MerchantController
     @PostMapping("/merchants")
     public Merchant addMerchant(@RequestBody Merchant newMerchant)
     {
-        String id = String.valueOf(new Random().nextInt());
         Merchant merchant = new Merchant(
-                id,
+                "Placeholder ID",
                 newMerchant.getFirstName(),
                 newMerchant.getLastName(),
                 newMerchant.getEmail(),

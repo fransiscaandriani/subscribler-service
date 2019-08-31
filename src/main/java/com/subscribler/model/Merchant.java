@@ -1,6 +1,7 @@
 package com.subscribler.model;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import lombok.AllArgsConstructor;
@@ -14,6 +15,9 @@ import java.util.List;
 @Getter @Setter
 @Document(collection = "merchants")
 public class Merchant {
+    @Transient
+    public static final String SEQUENCE_NAME = "merchants_sequence";
+
     @Id
     private @NonNull String id;
     private @NonNull String firstName;
