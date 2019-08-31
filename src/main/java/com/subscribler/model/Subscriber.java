@@ -22,5 +22,5 @@ public class Subscriber {
     private @NonNull String password;
     private @Nullable String address;
     private @Nullable String phoneNumber;
-    private @Nullable List<PackageSubscriptionPlan> packageSubscriptionPlanList;
+    private @Nullable List<Subscription> subscriptionList;
 }
