@@ -36,10 +36,7 @@ public class MerchantController
                 newMerchant.getFirstName(),
                 newMerchant.getLastName(),
                 newMerchant.getEmail(),
-                newMerchant.getAddress(),
-                newMerchant.getPhoneNumber(),
-                newMerchant.getBusiness(),
-                newMerchant.getBankAccount());
+                newMerchant.getPassword());
         merchantRepository.insert(merchant);
         return merchant;
     }
@@ -54,6 +51,7 @@ public class MerchantController
             merchant.setFirstName(newMerchant.getFirstName());
             merchant.setLastName(newMerchant.getLastName());
             merchant.setEmail(newMerchant.getEmail());
+            merchant.setPassword(newMerchant.getPassword());
             merchant.setAddress(newMerchant.getAddress());
             merchant.setPhoneNumber(newMerchant.getPhoneNumber());
             merchant.setBusiness(newMerchant.getBusiness());
