@@ -32,7 +32,6 @@ public class MerchantController {
     @PostMapping("/merchants")
     public Merchant addMerchant(@RequestBody Merchant newMerchant) {
         Merchant merchant = new Merchant(
-                "Placeholder ID",
                 newMerchant.getFirstName(),
                 newMerchant.getLastName(),
                 newMerchant.getEmail(),

@@ -3,19 +3,22 @@ package com.subscribler.controller;
 import com.subscribler.model.Item;
 import com.subscribler.model.Merchant;
 import com.subscribler.repository.MerchantRepository;
+import com.subscribler.service.SequenceGeneratorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.Random;
 
 @CrossOrigin
 @RestController
 public class ItemController {
     @Autowired
     MerchantRepository merchantRepository;
+
+    @Autowired
+    private SequenceGeneratorService sequenceGenerator;
 
     // Endpoint to get all existing items
     @GetMapping("/merchants/{merchantId}/items")
@@ -47,11 +50,10 @@ public class ItemController {
     @PostMapping("/merchants/{merchantId}/items")
     public Item createItem(@RequestBody Item newItem, @PathVariable String merchantId) {
         Optional<Merchant> optionalMerchant = merchantRepository.findById(merchantId);
+        String itemId = String.valueOf(sequenceGenerator.generateSequence(Item.SEQUENCE_NAME));
         if (optionalMerchant.isPresent()) {
             Merchant merchant = optionalMerchant.get(); //get merchant
-            String itemId = String.valueOf(new Random().nextInt()); //generate random id
             Item merchantItem = new Item(
-                    itemId,
                     newItem.getName(),
                     newItem.getDescription(),
                     newItem.getImageUrl(),
@@ -60,6 +62,7 @@ public class ItemController {
             List<Item> itemList = merchant.getItemList(); //get existing items
             if (itemList == null)
                 itemList = new ArrayList<>();
+            merchantItem.setId(itemId);
             itemList.add(merchantItem); //add the newly created item to the list
             merchant.setItemList(itemList);
             merchantRepository.save(merchant);
