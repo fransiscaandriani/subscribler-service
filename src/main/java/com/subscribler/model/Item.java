@@ -1,24 +1,24 @@
 package com.subscribler.model;
 
 import com.mongodb.lang.Nullable;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.annotation.Transient;
-import org.springframework.data.mongodb.core.mapping.Document;
-
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.Transient;
 
-@AllArgsConstructor
-@Getter @Setter
+@RequiredArgsConstructor
+@Getter
+@Setter
 
 public class Item {
     @Transient
     public static final String SEQUENCE_NAME = "items_sequence";
 
     @Id
-    private @Nullable String id;
+    private @Nullable
+    String id;
     private @NonNull String name;
     private @NonNull String description;
     private @NonNull String imageUrl;
