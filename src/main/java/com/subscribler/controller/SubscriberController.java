@@ -3,6 +3,7 @@ package com.subscribler.controller;
 import com.subscribler.model.Subscriber;
 import com.subscribler.repository.SubscriberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -14,16 +15,17 @@ public class SubscriberController {
     SubscriberRepository subscriberRepository;
 
     @GetMapping("/subscribers")
-    public List<Subscriber> getSubscribers(){ return subscriberRepository.findAll();}
+    public List<Subscriber> getSubscribers() {
+        return subscriberRepository.findAll();
+    }
 
     @GetMapping("/subscribers/{subscriberId}")
-    public Optional<Subscriber> getSubscriber(@PathVariable String subscriberId){
+    public Optional<Subscriber> getSubscriber(@PathVariable String subscriberId) {
         return subscriberRepository.findById(subscriberId);
     }
 
     @PostMapping("/subscribers")
-    public Subscriber addSubscriber(@RequestBody Subscriber newSubscriber)
-    {
+    public Subscriber addSubscriber(@RequestBody Subscriber newSubscriber) {
         Subscriber subscriber = new Subscriber(
                 "Placeholder ID",
                 newSubscriber.getFirstName(),
@@ -35,8 +37,7 @@ public class SubscriberController {
     }
 
     @PutMapping("/subscribers/{subscriberId}")
-    public Optional<Subscriber> updateSubscriber(@RequestBody Subscriber newSubscriber, @PathVariable String subscriberId)
-    {
+    public Optional<Subscriber> updateSubscriber(@RequestBody Subscriber newSubscriber, @PathVariable String subscriberId) {
         Optional<Subscriber> optionalSubscriber = subscriberRepository.findById(subscriberId);
         if (optionalSubscriber.isPresent()) {
             Subscriber subscriber = optionalSubscriber.get();
@@ -52,11 +53,11 @@ public class SubscriberController {
         return optionalSubscriber;
     }
 
-    @DeleteMapping(value = "/subscribers/{subscriberId}", produces = "application/json; charset=utf-8")
+    @DeleteMapping(value = "/subscribers/{subscriberId}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public String deleteSubscriber(@PathVariable String subscriberId) {
         boolean result = subscriberRepository.existsById(subscriberId);
         subscriberRepository.deleteById(subscriberId);
-        return "{ \"success\" : "+ (result ? "true" : "false") +" }";
+        return "{ \"success\" : " + (result ? "true" : "false") + " }";
     }
 
 }
