@@ -1,18 +1,17 @@
 package com.subscribler.model;
 
 import com.mongodb.lang.Nullable;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NonNull;
-import lombok.Setter;
+import lombok.*;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.List;
 
 
-@AllArgsConstructor
+@RequiredArgsConstructor
 @Getter
 @Setter
+@Document(collection = "subscribers")
 public class Subscriber {
     @Id
     private @NonNull String id;
