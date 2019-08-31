@@ -1,17 +1,14 @@
 package com.subscribler.model;
 
+import com.mongodb.lang.Nullable;
+import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NonNull;
-import lombok.Setter;
-
 import java.util.List;
 
-@AllArgsConstructor
+@RequiredArgsConstructor
 @Getter @Setter
 @Document(collection = "merchants")
 public class Merchant {
@@ -23,6 +20,6 @@ public class Merchant {
     private @NonNull String firstName;
     private @NonNull String lastName;
     private @NonNull String email;
-    private @NonNull List<Package> packageList;
-    private @NonNull List<Item> itemList;
+    private @Nullable List<Package> packageList;
+    private @Nullable List<Item> itemList;
 }
