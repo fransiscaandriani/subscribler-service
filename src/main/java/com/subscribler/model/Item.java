@@ -16,6 +16,6 @@ public class Item {
     private @NonNull String id;
     private @NonNull String name;
     private @NonNull String description;
-    private @NonNull String pictureUrl;
+    private @NonNull String imageUrl;
     private @NonNull String unit;
 }
