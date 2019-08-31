@@ -9,28 +9,24 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-public class MerchantController
-{
+public class MerchantController {
     @Autowired
     MerchantRepository merchantRepository;
 
     // Endpoint to get all existing merchants
     @GetMapping("/merchants")
-    public List<Merchant> getMerchants()
-    {
+    public List<Merchant> getMerchants() {
         return merchantRepository.findAll();
     }
 
     // Endpoint to get a specific merchant by id
     @GetMapping("/merchants/{merchantId}")
-    public Optional<Merchant> getMerchant(@PathVariable String merchantId)
-    {
+    public Optional<Merchant> getMerchant(@PathVariable String merchantId) {
         return merchantRepository.findById(merchantId);
     }
 
     @PostMapping("/merchants")
-    public Merchant addMerchant(@RequestBody Merchant newMerchant)
-    {
+    public Merchant addMerchant(@RequestBody Merchant newMerchant) {
         Merchant merchant = new Merchant(
                 "Placeholder ID",
                 newMerchant.getFirstName(),
@@ -43,8 +39,7 @@ public class MerchantController
 
     // Endpoint to update a specific merchant by id
     @PutMapping("/merchants/{merchantId}")
-    public Optional<Merchant> updateMerchant(@RequestBody Merchant newMerchant, @PathVariable String merchantId)
-    {
+    public Optional<Merchant> updateMerchant(@RequestBody Merchant newMerchant, @PathVariable String merchantId) {
         Optional<Merchant> optionalMerchant = merchantRepository.findById(merchantId);
         if (optionalMerchant.isPresent()) {
             Merchant merchant = optionalMerchant.get();
@@ -67,6 +62,6 @@ public class MerchantController
     public String deleteMerchant(@PathVariable String merchantId) {
         boolean result = merchantRepository.existsById(merchantId);
         merchantRepository.deleteById(merchantId);
-        return "{ \"success\" : "+ (result ? "true" : "false") +" }";
+        return "{ \"success\" : " + (result ? "true" : "false") + " }";
     }
 }
