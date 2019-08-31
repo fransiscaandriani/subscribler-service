@@ -54,7 +54,7 @@ public class ItemController {
                     itemId,
                     newItem.getName(),
                     newItem.getDescription(),
-                    newItem.getPictureUrl(),
+                    newItem.getImageUrl(),
                     newItem.getUnit());  //make new item object with the random id
 
             List<Item> itemList = merchant.getItemList(); //get existing items
@@ -81,7 +81,7 @@ public class ItemController {
                 if (item.getId().equals(itemId)) {
                     item.setName(newItem.getName());
                     item.setDescription(newItem.getDescription());
-                    item.setPictureUrl(newItem.getPictureUrl());
+                    item.setImageUrl(newItem.getImageUrl());
                     item.setUnit(newItem.getUnit());
                     merchantRepository.save(merchant);
                     return item;
