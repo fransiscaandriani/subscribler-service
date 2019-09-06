@@ -22,12 +22,7 @@ public class Merchant {
 
     @Id
     private @Nullable String id;
-    private @NonNull String firstName;
-    private @NonNull String lastName;
-    private @NonNull String email;
-    private @NonNull String password;
-    private @Nullable String address;
-    private @Nullable String phoneNumber;
+    private @NonNull Account account;
     private @Nullable Business business;
     private @Nullable BankAccount bankAccount;
     private @Nullable List<Package> packageList = new ArrayList<>();

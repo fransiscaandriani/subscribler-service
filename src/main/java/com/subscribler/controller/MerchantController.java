@@ -1,6 +1,7 @@
 package com.subscribler.controller;
 
 import com.google.zxing.WriterException;
+import com.subscribler.model.Account;
 import com.subscribler.model.Merchant;
 import com.subscribler.repository.MerchantRepository;
 import com.subscribler.service.QRGeneratorService;
@@ -31,11 +32,13 @@ public class MerchantController {
 
     @PostMapping("/merchants")
     public Merchant addMerchant(@RequestBody Merchant newMerchant) {
-        Merchant merchant = new Merchant(
-                newMerchant.getFirstName(),
-                newMerchant.getLastName(),
-                newMerchant.getEmail(),
-                newMerchant.getPassword());
+        Account account = new Account(
+                newMerchant.getAccount().getFirstName(),
+                newMerchant.getAccount().getLastName(),
+                newMerchant.getAccount().getEmail(),
+                newMerchant.getAccount().getPassword());
+
+        Merchant merchant = new Merchant(account);
         merchantRepository.insert(merchant);
         return merchant;
     }
@@ -46,12 +49,12 @@ public class MerchantController {
         Optional<Merchant> optionalMerchant = merchantRepository.findById(merchantId);
         if (optionalMerchant.isPresent()) {
             Merchant merchant = optionalMerchant.get();
-            merchant.setFirstName(newMerchant.getFirstName());
-            merchant.setLastName(newMerchant.getLastName());
-            merchant.setEmail(newMerchant.getEmail());
-            merchant.setPassword(newMerchant.getPassword());
-            merchant.setAddress(newMerchant.getAddress());
-            merchant.setPhoneNumber(newMerchant.getPhoneNumber());
+            merchant.getAccount().setFirstName(newMerchant.getAccount().getFirstName());
+            merchant.getAccount().setLastName(newMerchant.getAccount().getLastName());
+            merchant.getAccount().setEmail(newMerchant.getAccount().getEmail());
+            merchant.getAccount().setPassword(newMerchant.getAccount().getPassword());
+            merchant.getAccount().setAddress(newMerchant.getAccount().getAddress());
+            merchant.getAccount().setPhoneNumber(newMerchant.getAccount().getPhoneNumber());
             merchant.setBusiness(newMerchant.getBusiness());
             merchant.setBankAccount(newMerchant.getBankAccount());
             merchant.setPackageList(newMerchant.getPackageList());

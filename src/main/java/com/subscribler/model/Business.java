@@ -13,4 +13,5 @@ public class Business {
     private @NonNull String name;
     private @NonNull String type;
     private @NonNull String description;
+    private @NonNull String logisticOption;
 }
