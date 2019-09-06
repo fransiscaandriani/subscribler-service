@@ -1,5 +1,6 @@
 package com.subscribler.controller;
 
+import com.subscribler.model.Account;
 import com.subscribler.model.Subscriber;
 import com.subscribler.repository.SubscriberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,12 +27,13 @@ public class SubscriberController {
 
     @PostMapping("/subscribers")
     public Subscriber addSubscriber(@RequestBody Subscriber newSubscriber) {
-        Subscriber subscriber = new Subscriber(
-                "Placeholder ID",
-                newSubscriber.getFirstName(),
-                newSubscriber.getLastName(),
-                newSubscriber.getEmail(),
-                newSubscriber.getPassword());
+        Account account = new Account(
+                newSubscriber.getAccount().getFirstName(),
+                newSubscriber.getAccount().getLastName(),
+                newSubscriber.getAccount().getEmail(),
+                newSubscriber.getAccount().getPassword());
+
+        Subscriber subscriber = new Subscriber(account);
         subscriberRepository.insert(subscriber);
         return subscriber;
     }
@@ -41,12 +43,7 @@ public class SubscriberController {
         Optional<Subscriber> optionalSubscriber = subscriberRepository.findById(subscriberId);
         if (optionalSubscriber.isPresent()) {
             Subscriber subscriber = optionalSubscriber.get();
-            subscriber.setFirstName(newSubscriber.getFirstName());
-            subscriber.setLastName(newSubscriber.getLastName());
-            subscriber.setEmail(newSubscriber.getEmail());
-            subscriber.setPassword(newSubscriber.getPassword());
-            subscriber.setAddress(newSubscriber.getAddress());
-            subscriber.setPhoneNumber(newSubscriber.getPhoneNumber());
+            Account.updateAccount(subscriber.getAccount(), newSubscriber.getAccount());
             subscriber.setSubscriptionList(newSubscriber.getSubscriptionList());
             subscriberRepository.save(subscriber);
         }

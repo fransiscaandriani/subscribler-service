@@ -20,15 +20,8 @@ public class Subscriber {
     @Transient
     public static final String SEQUENCE_NAME = "subscribers_sequence";
     @Id
-    private @NonNull String id;
-    private @NonNull String firstName;
-    private @NonNull String lastName;
-    private @NonNull String email;
-    private @NonNull String password;
-    private @Nullable
-    String address;
-    private @Nullable
-    String phoneNumber;
+    private @Nullable String id;
+    private @NonNull Account account;
     private @Nullable
     List<Subscription> subscriptionList;
 }
