@@ -21,7 +21,7 @@ public class Merchant {
     public static final String SEQUENCE_NAME = "merchants_sequence";
 
     @Id
-    private @Nullable String id;
+    private @NonNull String id;
     private @NonNull String firstName;
     private @NonNull String lastName;
     private @NonNull String email;
