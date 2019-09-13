@@ -19,8 +19,7 @@ import java.util.List;
 public class Subscriber {
     @Transient
     public static final String SEQUENCE_NAME = "subscribers_sequence";
-    @Id
-    private @Nullable String id;
+    private @NonNull String id;
     private @NonNull String firstName;
     private @NonNull String lastName;
     private @NonNull String email;

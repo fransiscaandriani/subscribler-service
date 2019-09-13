@@ -28,6 +28,7 @@ public class SubscriberController {
     @PostMapping("/subscribers")
     public Subscriber addSubscriber(@RequestBody Subscriber newSubscriber) {
         Subscriber subscriber = new Subscriber(
+                newSubscriber.getId(),
                 newSubscriber.getFirstName(),
                 newSubscriber.getLastName(),
                 newSubscriber.getEmail(),
