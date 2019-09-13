@@ -9,6 +9,7 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
+import java.net.URLDecoder;
 import java.util.List;
 import java.util.Optional;
 
@@ -85,7 +86,7 @@ public class MerchantController {
         if (!optionalMerchant.isPresent()) {
             return null;
         }
-        byte[] qrData = QRGeneratorService.getQRCodeImage(url);
+        byte[] qrData = QRGeneratorService.getQRCodeImage(URLDecoder.decode(url, "UTF-8"));
         return qrData;
     }
 }
