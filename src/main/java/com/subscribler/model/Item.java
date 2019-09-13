@@ -11,7 +11,6 @@ import org.springframework.data.annotation.Transient;
 @RequiredArgsConstructor
 @Getter
 @Setter
-
 public class Item {
     @Transient
     public static final String SEQUENCE_NAME = "items_sequence";

@@ -28,7 +28,6 @@ public class SubscriberController {
     @PostMapping("/subscribers")
     public Subscriber addSubscriber(@RequestBody Subscriber newSubscriber) {
         Subscriber subscriber = new Subscriber(
-                "Placeholder ID",
                 newSubscriber.getFirstName(),
                 newSubscriber.getLastName(),
                 newSubscriber.getEmail(),
@@ -46,7 +45,7 @@ public class SubscriberController {
             subscriber.setLastName(newSubscriber.getLastName());
             subscriber.setEmail(newSubscriber.getEmail());
             subscriber.setPassword(newSubscriber.getPassword());
-            subscriber.setAddress(newSubscriber.getAddress());
+            subscriber.setDeliveryAddresses(newSubscriber.getDeliveryAddresses());
             subscriber.setPhoneNumber(newSubscriber.getPhoneNumber());
             subscriber.setSubscriptionList(newSubscriber.getSubscriptionList());
             subscriberRepository.save(subscriber);

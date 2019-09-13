@@ -58,8 +58,9 @@ public class PackageController {
                     newPackage.getName(),
                     newPackage.getDescription(),
                     newPackage.getCyclePeriod(),
-                    newPackage.getItemQuantityList(),
-                    newPackage.getSubscriptionPlanList());  //make new package object with the random id
+                    newPackage.getItems(),
+                    newPackage.getSubscriptionPlans(),
+                    newPackage.getImageUrl());  //make new package object with the random id
 
             List<Package> packageList = merchant.getPackageList(); //get existing packages
             if (packageList == null)
@@ -87,13 +88,13 @@ public class PackageController {
                     p.setName(newPackage.getName());
                     p.setDescription(newPackage.getDescription());
                     p.setCyclePeriod(newPackage.getCyclePeriod());
-                    p.setItemQuantityList(newPackage.getItemQuantityList());
-                    for (SubscriptionPlan plan : newPackage.getSubscriptionPlanList()) {
+                    p.setItems(newPackage.getItems());
+                    for (SubscriptionPlan plan : newPackage.getSubscriptionPlans()) {
                         if (!plan.getId().equals(null)) {
                             plan.setId(String.valueOf(sequenceGenerator.generateSequence(SubscriptionPlan.SEQUENCE_NAME)));
                         }
                     }
-                    p.setSubscriptionPlanList(newPackage.getSubscriptionPlanList());
+                    p.setSubscriptionPlans(newPackage.getSubscriptionPlans());
                     merchantRepository.save(merchant);
                     return p;
                 }
