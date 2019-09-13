@@ -1,21 +1,28 @@
 package com.subscribler.model;
 
+import com.mongodb.lang.Nullable;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.Transient;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NonNull;
-import lombok.Setter;
-
 @AllArgsConstructor
-@Getter @Setter
+@Getter
+@Setter
 public class SubscriptionPlan {
     @Transient
     public static final String SEQUENCE_NAME = "subscription_plans_sequence";
 
     @Id
-    private @NonNull String id;
-    private @NonNull int billingPeriod; //in cycle
-    private @NonNull double price;
+    private @Nullable
+    String id;
+    private @Nullable
+    String name;
+    private @Nullable
+    String description;
+    private @Nullable
+    int cycles; //in cycle
+    private @Nullable
+    double price;
 }
