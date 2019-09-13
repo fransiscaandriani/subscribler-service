@@ -9,6 +9,7 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.util.List;
 import java.util.Optional;
@@ -71,12 +72,13 @@ public class MerchantController {
     }
 
     @GetMapping(value = "/merchants/{merchantId}/embed/{url}", produces = MediaType.TEXT_PLAIN_VALUE)
-    public String getEmbedCode(@PathVariable String merchantId, @PathVariable String url) {
+    public String getEmbedCode(@PathVariable String merchantId, @PathVariable String url) throws UnsupportedEncodingException {
         Optional<Merchant> optionalMerchant = merchantRepository.findById(merchantId);
         if (!optionalMerchant.isPresent()) {
             return null;
         }
-        String embedString = String.format("<a href=\"%s\"><div style=\"border: 5px solid #9000FF;\n  display: inline-block;\n  padding: 5px 10px;\n  border-radius: 10px;\n  margin: 5px 10px;\n  background-color: #9000FF;\n  color: white;\n  cursor: pointer;\">\n  Subscribe Now\n</div>\n</a>", url);
+        String decodedUrl = URLDecoder.decode(url, "UTF-8");
+        String embedString = String.format("<a href=\"%s\"><div style=\"border: 5px solid #9000FF;\n  display: inline-block;\n  padding: 5px 10px;\n  border-radius: 10px;\n  margin: 5px 10px;\n  background-color: #9000FF;\n  color: white;\n  cursor: pointer;\">\n  Subscribe Now\n</div>\n</a>", decodedUrl);
         return embedString;
     }
 
