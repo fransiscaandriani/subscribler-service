@@ -18,7 +18,7 @@
 
 ## Swagger UI
 For API documentation and testing, we use Swagger UI.  
-To view the API list, head to https://localhost:8082/swagger-ui.html
+To view the API list, head to http://localhost:8082/swagger-ui.html
 
 ## MongoDB
 Make sure your mongo db service is running.  
