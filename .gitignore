@@ -37,3 +37,6 @@ transaction-logs
 secrets.yml
 .gradletasknamecache
 .sts4-cache
+/seeder/node_modules/
+/seeder/yarn-error.log
+
